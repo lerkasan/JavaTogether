@@ -9,8 +9,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class Word implements Comparable<Word> {
 
   public static final int MIN_WORD_LENGTH = 3;
@@ -39,7 +39,7 @@ public class Word implements Comparable<Word> {
 
   @Override
   public String toString() {
-    return  word;
+    return word;
   }
 
   @Override

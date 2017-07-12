@@ -84,7 +84,7 @@ public class Sentence {
   }
 
   @NonNull
-  public Word getFirstShortestWord() {
+  public Word getLastShortestWord() {
     Objects.requireNonNull(uniqueWords, UNIQUE_WORD_NON_NULL);
     Word shortestWord = new Word(sentence);
     if (uniqueWords.isEmpty()) {
@@ -107,7 +107,7 @@ public class Sentence {
     String sentenceWithoutMarks = getSentenceWithoutMarks();
     String[] plainWords = sentenceWithoutMarks.split(" ");
     for (String element : plainWords) {
-      if (! element.isEmpty()) {
+      if (!element.isEmpty()) {
         Word word = new Word(element.trim());
         words.add(word);
       }
@@ -124,6 +124,6 @@ public class Sentence {
 
   @Override
   public String toString() {
-    return  sentence;
+    return sentence;
   }
 }

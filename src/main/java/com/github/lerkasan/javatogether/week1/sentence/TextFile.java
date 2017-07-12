@@ -19,8 +19,8 @@ import lombok.NonNull;
 @EqualsAndHashCode
 public class TextFile {
 
-  static final String SPECIAL_MARKS = "[\\.,!?:;\"()\']| - |- | -|\\.\\.\\.|[\\[\\]\\{\\}]";
-  private static final String SENTENCE_END_MARKS_REGEXP = "! |\\. |\\.|\\? |\\.\\.\\.";
+  static final String SPECIAL_MARKS = "[“”\\.,!?:;\"()\']| - |- | -| — | —|— |\\.\\.\\.|[\\[\\]\\{\\}]";
+  private static final String SENTENCE_END_MARKS_REGEXP = "” |! |\\. |\\.|\\? |\\.\\.\\.";
 
   @Getter
   private String text;
@@ -51,7 +51,9 @@ public class TextFile {
     String[] plainSentences = text.split(SENTENCE_END_MARKS_REGEXP);
     for (String element : plainSentences) {
       Sentence sentence = new Sentence(element.trim());
-      sentences.add(sentence);
+      if (!sentence.getSentence().isEmpty()) {
+        sentences.add(sentence);
+      }
     }
     return new ArrayList<>(sentences);
   }
@@ -68,7 +70,7 @@ public class TextFile {
 
   public int getTextLengthWithoutSpaces() {
     Objects.requireNonNull(text, TEXT_NON_NULL);
-    if (getAllWordsAmount() <= 1 ) {
+    if (getAllWordsAmount() <= 1) {
       return text.length();
     }
     return text.length() - getAllWordsAmount() + 1;
@@ -137,7 +139,8 @@ public class TextFile {
       longestWordInText = firstSentence.getFirstLongestWord();
       for (Sentence sentence : sentences) {
         Word longestWordInSentence = sentence.getFirstLongestWord();
-        if (longestWordInSentence.isMeaningfullWord() && longestWordInSentence.compareTo(longestWordInText) > 0) {
+        if (longestWordInSentence.isMeaningfullWord()
+            && longestWordInSentence.compareTo(longestWordInText) > 0) {
           longestWordInText = longestWordInSentence;
         }
       }
@@ -151,10 +154,11 @@ public class TextFile {
     Objects.requireNonNull(sentences, SENTENCE_NON_NULL);
     if (!sentences.isEmpty()) {
       Sentence firstSentence = sentences.iterator().next();
-      shortestWordInText = firstSentence.getFirstShortestWord();
+      shortestWordInText = firstSentence.getLastShortestWord();
       for (Sentence sentence : sentences) {
-        Word shortestWordInSentence = sentence.getFirstShortestWord();
-        if (shortestWordInSentence.isMeaningfullWord() && shortestWordInSentence.compareTo(shortestWordInText) <= 0) {
+        Word shortestWordInSentence = sentence.getLastShortestWord();
+        if (shortestWordInSentence.isMeaningfullWord()
+            && shortestWordInSentence.compareTo(shortestWordInText) <= 0) {
           shortestWordInText = shortestWordInSentence;
         }
       }
@@ -190,6 +194,6 @@ public class TextFile {
 
   @Override
   public String toString() {
-    return  text;
+    return text;
   }
 }

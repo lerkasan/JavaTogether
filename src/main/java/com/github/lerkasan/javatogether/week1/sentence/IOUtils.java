@@ -18,7 +18,8 @@ public class IOUtils {
 
   static final Logger logger = LoggerFactory.getLogger(Main.class);
 
-  private IOUtils() {}
+  private IOUtils() {
+  }
 
   @NonNull
   public static String readFile(@NonNull String path) {
@@ -42,7 +43,8 @@ public class IOUtils {
       int counter = 1;
       for (Sentence sentence : text.getSentences()) {
         System.out.println(
-            "Words amount in sentence #" + counter + " is: " + sentence.getAllWordsAmount());
+            "Words amount in sentence #" + counter + " is: " + sentence.getAllWordsAmount() + "\t"
+                + sentence.getSentence());
         counter++;
       }
     }
